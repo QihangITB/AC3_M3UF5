@@ -11,7 +11,7 @@ using System.Xml.Linq;
 using CsvHelper;
 using CsvHelper.Configuration;
 
-namespace AC3_M3UF5
+namespace AC3_M3UF5.CodeAC2
 {
     public class FileHelper
     {
