@@ -137,5 +137,67 @@ namespace AC3_M3UF5.CodeAC2
             Console.ResetColor();
         }
 
+
+
+        //NOUS FUNCIONS PER L'AC3:
+
+
+        public static void CreateKeyValueXML(Region region, string path)
+        {
+
+            XDocument xmlDoc = new XDocument(
+                new XElement("regions",
+                    new XElement("region",
+                        new XElement("key", region.Code),
+                        new XElement("value", region.Name)
+                    )
+                )
+            );
+            xmlDoc.Save(path);
+        }
+
+        public static void AddKeyValueXML(Region region, string path)
+        {
+            XDocument xmlDoc = XDocument.Load(path);
+
+            XElement newRegion = new XElement("region",
+                                       new XElement("key", region.Code),
+                                       new XElement("value", region.Name)
+                                 );
+
+            xmlDoc.Root?.Add(newRegion);
+            xmlDoc.Save(path);
+        }
+
+        public static Dictionary<int, string> ReadKeyValueXML(string path)
+        {
+            XDocument xmlDoc = XDocument.Load(path);
+            Dictionary<int, string> regions = new Dictionary<int, string>();
+
+            foreach (XElement region in xmlDoc.Descendants("region"))
+            {
+                if (!regions.ContainsKey((int)region.Element("key")))
+                {
+                    regions.Add((int)region.Element("key"), (string)region.Element("value"));
+                }
+            }
+
+            return regions;
+        }
+
+        public static void AddRegionToCSV(Region region, string path)
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = false,
+            };
+
+            using var writer = new StreamWriter(path, append: true);
+            using var csv = new CsvWriter(writer, config);
+
+            writer.WriteLine(); //agregamos un salto de linea
+            csv.WriteRecord(region);
+        }
+
     }
 }
