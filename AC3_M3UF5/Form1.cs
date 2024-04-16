@@ -97,6 +97,8 @@ namespace AC3_M3UF5
         {
             string pathCSV = "../../../Files/ConsumAiguesComarca.csv";
 
+            labelErrorMessage.Text = "";
+
             if (ValidateChildren())
             {
                 CodeAC2.Region region = new CodeAC2.Region
@@ -165,11 +167,13 @@ namespace AC3_M3UF5
             if (string.IsNullOrEmpty(comboYear.Text))
             {
                 errorYear.SetError(comboYear, "Year can't be empty");
+                labelErrorMessage.Text += "Year can't be empty.";
                 e.Cancel = true;
             }
             else if (!ComboYearList().Contains(comboYear.Text.Trim()))
             {
                 errorYear.SetError(comboYear, "Year is not exist in the selections");
+                labelErrorMessage.Text += "Year is not exist in the selections.";
                 e.Cancel = true;
             }
             else
@@ -184,11 +188,13 @@ namespace AC3_M3UF5
             if (string.IsNullOrEmpty(comboRegion.Text))
             {
                 errorRegion.SetError(comboRegion, "Region can't be empty");
+                labelErrorMessage.Text += "Region can't be empty.\n";
                 e.Cancel = true;
             }
             else if (!ComboRegionList().Contains(comboRegion.Text.Trim()))
             {
                 errorRegion.SetError(comboRegion, "Region is not exist in the selections");
+                labelErrorMessage.Text += "Region is not exist in the selections.\n";
                 e.Cancel = true;
             }
             else
@@ -203,11 +209,13 @@ namespace AC3_M3UF5
             if (string.IsNullOrEmpty(textPopulation.Text))
             {
                 errorPopulation.SetError(textPopulation, "Population can't be empty");
+                labelErrorMessage.Text += "Population can't be empty.\n";
                 e.Cancel = true;
             }
             else if (!int.TryParse(textPopulation.Text, out int result))
             {
                 errorPopulation.SetError(textPopulation, "Population must be a number");
+                labelErrorMessage.Text += "Population must be a number.\n";
                 e.Cancel = true;
             }
             else
@@ -222,11 +230,13 @@ namespace AC3_M3UF5
             if (string.IsNullOrEmpty(textDomesticConsum.Text))
             {
                 errorDomestic.SetError(textDomesticConsum, "Domestic consumption can't be empty");
+                labelErrorMessage.Text += "Domestic consumption can't be empty.\n";
                 e.Cancel = true;
             }
             else if (!int.TryParse(textDomesticConsum.Text, out int result))
             {
                 errorDomestic.SetError(textDomesticConsum, "Domestic consumption must be a number");
+                labelErrorMessage.Text += "Domestic consumption must be a number.\n";
                 e.Cancel = true;
             }
             else
@@ -241,11 +251,13 @@ namespace AC3_M3UF5
             if (string.IsNullOrEmpty(textEconomyConsum.Text))
             {
                 errorEconomic.SetError(textEconomyConsum, "Economy consumption can't be empty");
+                labelErrorMessage.Text += "Economy consumption can't be empty.\n";
                 e.Cancel = true;
             }
             else if (!int.TryParse(textEconomyConsum.Text, out int result))
             {
                 errorEconomic.SetError(textEconomyConsum, "Economy consumption must be a number");
+                labelErrorMessage.Text += "Economy consumption must be a number.\n";
                 e.Cancel = true;
             }
             else
@@ -260,11 +272,13 @@ namespace AC3_M3UF5
             if (string.IsNullOrEmpty(textTotalConsum.Text))
             {
                 errorTotal.SetError(textTotalConsum, "Total consumption can't be empty");
+                labelErrorMessage.Text += "Total consumption can't be empty.\n";
                 e.Cancel = true;
             }
             else if (!int.TryParse(textTotalConsum.Text, out int result))
             {
                 errorTotal.SetError(textTotalConsum, "Total consumption must be a number");
+                labelErrorMessage.Text += "Total consumption must be a number.\n";
                 e.Cancel = true;
             }
             else
@@ -279,11 +293,13 @@ namespace AC3_M3UF5
             if (string.IsNullOrEmpty(textConsumCapita.Text))
             {
                 errorCapita.SetError(textConsumCapita, "Consumption per capita can't be empty");
+                labelErrorMessage.Text += "Consumption per capita can't be empty.\n";
                 e.Cancel = true;
             }
             else if (!float.TryParse(textConsumCapita.Text, out float result))
             {
                 errorCapita.SetError(textConsumCapita, "Consumption per capita must be a number");
+                labelErrorMessage.Text += "Consumption per capita must be a number.\n";
                 e.Cancel = true;
             }
             else

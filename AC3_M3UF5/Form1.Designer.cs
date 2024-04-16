@@ -66,6 +66,8 @@ namespace AC3_M3UF5
             errorEconomic = new ErrorProvider(components);
             errorTotal = new ErrorProvider(components);
             errorCapita = new ErrorProvider(components);
+            groupError = new GroupBox();
+            labelErrorMessage = new Label();
             groupManagement.SuspendLayout();
             groupStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridRegions).BeginInit();
@@ -76,6 +78,7 @@ namespace AC3_M3UF5
             ((System.ComponentModel.ISupportInitialize)errorEconomic).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorTotal).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorCapita).BeginInit();
+            groupError.SuspendLayout();
             SuspendLayout();
             // 
             // groupManagement
@@ -242,7 +245,7 @@ namespace AC3_M3UF5
             groupStats.Controls.Add(labelStatOne);
             groupStats.Location = new Point(440, 25);
             groupStats.Name = "groupStats";
-            groupStats.Size = new Size(352, 172);
+            groupStats.Size = new Size(352, 141);
             groupStats.TabIndex = 1;
             groupStats.TabStop = false;
             groupStats.Text = "Region statistics";
@@ -252,7 +255,7 @@ namespace AC3_M3UF5
             labelResStatFour.AutoSize = true;
             labelResStatFour.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             labelResStatFour.ForeColor = Color.Blue;
-            labelResStatFour.Location = new Point(288, 123);
+            labelResStatFour.Location = new Point(280, 108);
             labelResStatFour.Name = "labelResStatFour";
             labelResStatFour.Size = new Size(12, 15);
             labelResStatFour.TabIndex = 21;
@@ -263,7 +266,7 @@ namespace AC3_M3UF5
             labelResStatThree.AutoSize = true;
             labelResStatThree.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             labelResStatThree.ForeColor = Color.Blue;
-            labelResStatThree.Location = new Point(288, 94);
+            labelResStatThree.Location = new Point(280, 79);
             labelResStatThree.Name = "labelResStatThree";
             labelResStatThree.Size = new Size(12, 15);
             labelResStatThree.TabIndex = 20;
@@ -274,7 +277,7 @@ namespace AC3_M3UF5
             labelResStatTwo.AutoSize = true;
             labelResStatTwo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             labelResStatTwo.ForeColor = Color.Blue;
-            labelResStatTwo.Location = new Point(288, 64);
+            labelResStatTwo.Location = new Point(280, 49);
             labelResStatTwo.Name = "labelResStatTwo";
             labelResStatTwo.Size = new Size(12, 15);
             labelResStatTwo.TabIndex = 19;
@@ -285,7 +288,7 @@ namespace AC3_M3UF5
             labelResStatOne.AutoSize = true;
             labelResStatOne.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             labelResStatOne.ForeColor = Color.Blue;
-            labelResStatOne.Location = new Point(288, 38);
+            labelResStatOne.Location = new Point(280, 23);
             labelResStatOne.Name = "labelResStatOne";
             labelResStatOne.Size = new Size(12, 15);
             labelResStatOne.TabIndex = 16;
@@ -295,7 +298,7 @@ namespace AC3_M3UF5
             // 
             labelFour.AutoSize = true;
             labelFour.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelFour.Location = new Point(19, 123);
+            labelFour.Location = new Point(22, 108);
             labelFour.Name = "labelFour";
             labelFour.Size = new Size(232, 15);
             labelFour.TabIndex = 18;
@@ -305,7 +308,7 @@ namespace AC3_M3UF5
             // 
             labelStatThree.AutoSize = true;
             labelStatThree.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelStatThree.Location = new Point(16, 94);
+            labelStatThree.Location = new Point(19, 79);
             labelStatThree.Name = "labelStatThree";
             labelStatThree.Size = new Size(235, 15);
             labelStatThree.TabIndex = 17;
@@ -315,7 +318,7 @@ namespace AC3_M3UF5
             // 
             labelStatTwo.AutoSize = true;
             labelStatTwo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelStatTwo.Location = new Point(62, 64);
+            labelStatTwo.Location = new Point(65, 49);
             labelStatTwo.Name = "labelStatTwo";
             labelStatTwo.Size = new Size(189, 15);
             labelStatTwo.TabIndex = 16;
@@ -325,7 +328,7 @@ namespace AC3_M3UF5
             // 
             labelStatOne.AutoSize = true;
             labelStatOne.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelStatOne.Location = new Point(107, 38);
+            labelStatOne.Location = new Point(110, 23);
             labelStatOne.Name = "labelStatOne";
             labelStatOne.Size = new Size(144, 15);
             labelStatOne.TabIndex = 15;
@@ -355,9 +358,9 @@ namespace AC3_M3UF5
             // 
             dataGridRegions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridRegions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridRegions.Location = new Point(26, 302);
+            dataGridRegions.Location = new Point(26, 311);
             dataGridRegions.Name = "dataGridRegions";
-            dataGridRegions.Size = new Size(766, 152);
+            dataGridRegions.Size = new Size(766, 171);
             dataGridRegions.TabIndex = 4;
             dataGridRegions.CellClick += dataGridRegions_CellClick;
             // 
@@ -389,12 +392,33 @@ namespace AC3_M3UF5
             // 
             errorCapita.ContainerControl = this;
             // 
+            // groupError
+            // 
+            groupError.Controls.Add(labelErrorMessage);
+            groupError.Location = new Point(440, 172);
+            groupError.Name = "groupError";
+            groupError.Size = new Size(352, 124);
+            groupError.TabIndex = 5;
+            groupError.TabStop = false;
+            groupError.Text = "Inputs Error";
+            // 
+            // labelErrorMessage
+            // 
+            labelErrorMessage.AutoSize = true;
+            labelErrorMessage.BackColor = SystemColors.Control;
+            labelErrorMessage.ForeColor = Color.Red;
+            labelErrorMessage.Location = new Point(53, 19);
+            labelErrorMessage.Name = "labelErrorMessage";
+            labelErrorMessage.Size = new Size(0, 15);
+            labelErrorMessage.TabIndex = 0;
+            // 
             // managementForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoValidate = AutoValidate.Disable;
-            ClientSize = new Size(817, 476);
+            ClientSize = new Size(817, 494);
+            Controls.Add(groupError);
             Controls.Add(dataGridRegions);
             Controls.Add(buttonSave);
             Controls.Add(buttonClean);
@@ -414,6 +438,8 @@ namespace AC3_M3UF5
             ((System.ComponentModel.ISupportInitialize)errorEconomic).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorTotal).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorCapita).EndInit();
+            groupError.ResumeLayout(false);
+            groupError.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -453,5 +479,7 @@ namespace AC3_M3UF5
         private ErrorProvider errorEconomic;
         private ErrorProvider errorTotal;
         private ErrorProvider errorCapita;
+        private GroupBox groupError;
+        private Label labelErrorMessage;
     }
 }
