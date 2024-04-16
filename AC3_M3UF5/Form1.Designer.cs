@@ -426,6 +426,7 @@ namespace AC3_M3UF5
             Controls.Add(groupManagement);
             Name = "managementForm";
             Text = "Region demographic data management";
+            Load += managementForm_Load;
             groupManagement.ResumeLayout(false);
             groupManagement.PerformLayout();
             groupStats.ResumeLayout(false);

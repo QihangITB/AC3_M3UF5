@@ -8,7 +8,10 @@ namespace AC3_M3UF5
         public managementForm()
         {
             InitializeComponent();
+        }
 
+        private void managementForm_Load(object sender, EventArgs e)
+        {
             List<CodeAC2.Region> regionsCSV = new List<CodeAC2.Region>();
             Dictionary<int, string> regionsKeyValue = new Dictionary<int, string>();
 
@@ -104,7 +107,7 @@ namespace AC3_M3UF5
                 CodeAC2.Region region = new CodeAC2.Region
                 {
                     Year = int.Parse(comboYear.Text),
-                    Code = (int)comboRegion.SelectedValue,
+                    Code = (int?)comboRegion.SelectedValue ?? 0,
                     Name = comboRegion.Text,
                     Population = int.Parse(textPopulation.Text),
                     DomesticConsum = int.Parse(textDomesticConsum.Text),
@@ -141,7 +144,7 @@ namespace AC3_M3UF5
             List<string> list = new List<string>();
             foreach (var item in comboYear.Items)
             {
-                list.Add(item.ToString());
+                list.Add(item.ToString() ?? "");
             }
             return list;
         }
@@ -155,8 +158,9 @@ namespace AC3_M3UF5
                  * Convertim "item" a un objecte per poder accedir a la propietat "Value" i obtenir 
                  * el valor de la regió. Després el convertim a string i l'afegim a la llista.
                  */
-                string Value = item.GetType().GetProperty("Value").GetValue(item).ToString();
-                list.Add(Value);
+                string? Value = item.GetType().GetProperty("Value")?.GetValue(item)?.ToString();
+                list.Add(Value ?? "");
+
             }
             return list;
         }
