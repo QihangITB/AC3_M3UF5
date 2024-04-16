@@ -31,6 +31,7 @@ namespace AC3_M3UF5
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             groupManagement = new GroupBox();
             textConsumCapita = new TextBox();
             textTotalConsum = new TextBox();
@@ -58,9 +59,23 @@ namespace AC3_M3UF5
             buttonClean = new Button();
             buttonSave = new Button();
             dataGridRegions = new DataGridView();
+            errorYear = new ErrorProvider(components);
+            errorRegion = new ErrorProvider(components);
+            errorPopulation = new ErrorProvider(components);
+            errorDomestic = new ErrorProvider(components);
+            errorEconomic = new ErrorProvider(components);
+            errorTotal = new ErrorProvider(components);
+            errorCapita = new ErrorProvider(components);
             groupManagement.SuspendLayout();
             groupStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridRegions).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorYear).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorRegion).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorPopulation).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorDomestic).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorEconomic).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorTotal).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorCapita).BeginInit();
             SuspendLayout();
             // 
             // groupManagement
@@ -88,44 +103,49 @@ namespace AC3_M3UF5
             // 
             // textConsumCapita
             // 
-            textConsumCapita.Location = new Point(258, 183);
+            textConsumCapita.Location = new Point(285, 183);
             textConsumCapita.Name = "textConsumCapita";
-            textConsumCapita.Size = new Size(100, 23);
+            textConsumCapita.Size = new Size(79, 23);
             textConsumCapita.TabIndex = 14;
+            textConsumCapita.Validating += textConsumCapita_Validating;
             // 
             // textTotalConsum
             // 
-            textTotalConsum.Location = new Point(258, 154);
+            textTotalConsum.Location = new Point(285, 154);
             textTotalConsum.Name = "textTotalConsum";
-            textTotalConsum.Size = new Size(100, 23);
+            textTotalConsum.Size = new Size(79, 23);
             textTotalConsum.TabIndex = 13;
+            textTotalConsum.Validating += textTotalConsum_Validating;
             // 
             // textEconomyConsum
             // 
-            textEconomyConsum.Location = new Point(258, 123);
+            textEconomyConsum.Location = new Point(285, 123);
             textEconomyConsum.Name = "textEconomyConsum";
-            textEconomyConsum.Size = new Size(100, 23);
+            textEconomyConsum.Size = new Size(79, 23);
             textEconomyConsum.TabIndex = 12;
+            textEconomyConsum.Validating += textEconomyConsum_Validating;
             // 
             // textDomesticConsum
             // 
-            textDomesticConsum.Location = new Point(258, 94);
+            textDomesticConsum.Location = new Point(285, 94);
             textDomesticConsum.Name = "textDomesticConsum";
-            textDomesticConsum.Size = new Size(100, 23);
+            textDomesticConsum.Size = new Size(79, 23);
             textDomesticConsum.TabIndex = 11;
+            textDomesticConsum.Validating += textDomesticConsum_Validating;
             // 
             // textPopulation
             // 
-            textPopulation.Location = new Point(258, 56);
+            textPopulation.Location = new Point(285, 56);
             textPopulation.Name = "textPopulation";
-            textPopulation.Size = new Size(100, 23);
+            textPopulation.Size = new Size(79, 23);
             textPopulation.TabIndex = 10;
+            textPopulation.Validating += textPopulation_Validating;
             // 
             // labelConsumCapita
             // 
             labelConsumCapita.AutoSize = true;
             labelConsumCapita.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelConsumCapita.Location = new Point(59, 186);
+            labelConsumCapita.Location = new Point(73, 186);
             labelConsumCapita.Name = "labelConsumCapita";
             labelConsumCapita.Size = new Size(193, 15);
             labelConsumCapita.TabIndex = 9;
@@ -135,7 +155,7 @@ namespace AC3_M3UF5
             // 
             labelTotalConsum.AutoSize = true;
             labelTotalConsum.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelTotalConsum.Location = new Point(218, 157);
+            labelTotalConsum.Location = new Point(232, 157);
             labelTotalConsum.Name = "labelTotalConsum";
             labelTotalConsum.Size = new Size(34, 15);
             labelTotalConsum.TabIndex = 8;
@@ -145,7 +165,7 @@ namespace AC3_M3UF5
             // 
             labelEconomyConsum.AutoSize = true;
             labelEconomyConsum.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelEconomyConsum.Location = new Point(44, 126);
+            labelEconomyConsum.Location = new Point(58, 126);
             labelEconomyConsum.Name = "labelEconomyConsum";
             labelEconomyConsum.Size = new Size(208, 15);
             labelEconomyConsum.TabIndex = 7;
@@ -155,7 +175,7 @@ namespace AC3_M3UF5
             // 
             labelDomesticConsum.AutoSize = true;
             labelDomesticConsum.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelDomesticConsum.Location = new Point(141, 97);
+            labelDomesticConsum.Location = new Point(155, 97);
             labelDomesticConsum.Name = "labelDomesticConsum";
             labelDomesticConsum.Size = new Size(111, 15);
             labelDomesticConsum.TabIndex = 6;
@@ -164,24 +184,26 @@ namespace AC3_M3UF5
             // comboRegion
             // 
             comboRegion.FormattingEnabled = true;
-            comboRegion.Location = new Point(135, 56);
+            comboRegion.Location = new Point(108, 56);
             comboRegion.Name = "comboRegion";
-            comboRegion.Size = new Size(93, 23);
+            comboRegion.Size = new Size(158, 23);
             comboRegion.TabIndex = 4;
+            comboRegion.Validating += comboRegion_Validating;
             // 
             // comboYear
             // 
             comboYear.FormattingEnabled = true;
-            comboYear.Location = new Point(32, 56);
+            comboYear.Location = new Point(21, 56);
             comboYear.Name = "comboYear";
-            comboYear.Size = new Size(78, 23);
+            comboYear.Size = new Size(64, 23);
             comboYear.TabIndex = 3;
+            comboYear.Validating += comboYear_Validating;
             // 
             // labelPopulation
             // 
             labelPopulation.AutoSize = true;
             labelPopulation.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelPopulation.Location = new Point(258, 38);
+            labelPopulation.Location = new Point(285, 38);
             labelPopulation.Name = "labelPopulation";
             labelPopulation.Size = new Size(66, 15);
             labelPopulation.TabIndex = 2;
@@ -191,7 +213,7 @@ namespace AC3_M3UF5
             // 
             labelRegion.AutoSize = true;
             labelRegion.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelRegion.Location = new Point(135, 38);
+            labelRegion.Location = new Point(108, 38);
             labelRegion.Name = "labelRegion";
             labelRegion.Size = new Size(46, 15);
             labelRegion.TabIndex = 1;
@@ -202,7 +224,7 @@ namespace AC3_M3UF5
             labelYear.AutoSize = true;
             labelYear.BackColor = SystemColors.Control;
             labelYear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            labelYear.Location = new Point(32, 38);
+            labelYear.Location = new Point(21, 38);
             labelYear.Name = "labelYear";
             labelYear.Size = new Size(31, 15);
             labelYear.TabIndex = 0;
@@ -331,6 +353,7 @@ namespace AC3_M3UF5
             // 
             // dataGridRegions
             // 
+            dataGridRegions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridRegions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridRegions.Location = new Point(26, 302);
             dataGridRegions.Name = "dataGridRegions";
@@ -338,10 +361,39 @@ namespace AC3_M3UF5
             dataGridRegions.TabIndex = 4;
             dataGridRegions.CellClick += dataGridRegions_CellClick;
             // 
+            // errorYear
+            // 
+            errorYear.ContainerControl = this;
+            // 
+            // errorRegion
+            // 
+            errorRegion.ContainerControl = this;
+            // 
+            // errorPopulation
+            // 
+            errorPopulation.ContainerControl = this;
+            // 
+            // errorDomestic
+            // 
+            errorDomestic.ContainerControl = this;
+            // 
+            // errorEconomic
+            // 
+            errorEconomic.ContainerControl = this;
+            // 
+            // errorTotal
+            // 
+            errorTotal.ContainerControl = this;
+            // 
+            // errorCapita
+            // 
+            errorCapita.ContainerControl = this;
+            // 
             // managementForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoValidate = AutoValidate.Disable;
             ClientSize = new Size(817, 476);
             Controls.Add(dataGridRegions);
             Controls.Add(buttonSave);
@@ -355,6 +407,13 @@ namespace AC3_M3UF5
             groupStats.ResumeLayout(false);
             groupStats.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridRegions).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorYear).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorRegion).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorPopulation).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorDomestic).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorEconomic).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorTotal).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorCapita).EndInit();
             ResumeLayout(false);
         }
 
@@ -387,5 +446,12 @@ namespace AC3_M3UF5
         private Label labelFour;
         private Label labelResStatFour;
         private DataGridView dataGridRegions;
+        private ErrorProvider errorYear;
+        private ErrorProvider errorRegion;
+        private ErrorProvider errorPopulation;
+        private ErrorProvider errorDomestic;
+        private ErrorProvider errorEconomic;
+        private ErrorProvider errorTotal;
+        private ErrorProvider errorCapita;
     }
 }

@@ -35,8 +35,10 @@ namespace AC3_M3UF5
 
             dataGridRegions.DataSource = regionsCSV;
             dataGridRegions.Columns[0].HeaderText = "Year";
+            dataGridRegions.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridRegions.Columns[1].Visible = false;
             dataGridRegions.Columns[2].HeaderText = "Region";
+            dataGridRegions.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridRegions.Columns[3].HeaderText = "Population";
             dataGridRegions.Columns[4].HeaderText = "Domestic network";
             dataGridRegions.Columns[5].HeaderText = "Economic activities and own sources";
@@ -95,21 +97,24 @@ namespace AC3_M3UF5
         {
             string pathCSV = "../../../Files/ConsumAiguesComarca.csv";
 
-            CodeAC2.Region region = new CodeAC2.Region
+            if (ValidateChildren())
             {
-                Year = int.Parse(comboYear.Text),
-                Code = (int)comboRegion.SelectedValue,
-                Name = comboRegion.Text,
-                Population = int.Parse(textPopulation.Text),
-                DomesticConsum = int.Parse(textDomesticConsum.Text),
-                EconomyConsum = int.Parse(textEconomyConsum.Text),
-                TotalConsum = int.Parse(textTotalConsum.Text),
-                ConsumCapita = float.Parse(textConsumCapita.Text)
-            };
+                CodeAC2.Region region = new CodeAC2.Region
+                {
+                    Year = int.Parse(comboYear.Text),
+                    Code = (int)comboRegion.SelectedValue,
+                    Name = comboRegion.Text,
+                    Population = int.Parse(textPopulation.Text),
+                    DomesticConsum = int.Parse(textDomesticConsum.Text),
+                    EconomyConsum = int.Parse(textEconomyConsum.Text),
+                    TotalConsum = int.Parse(textTotalConsum.Text),
+                    ConsumCapita = float.Parse(textConsumCapita.Text)
+                };
 
-            FileHelper.AddRegionToCSV(region, pathCSV);
-            CleanInputs();
-            InitializateDataGrid();
+                FileHelper.AddRegionToCSV(region, pathCSV);
+                CleanInputs();
+                InitializateDataGrid();
+            }
         }
 
         private void dataGridRegions_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -127,6 +132,165 @@ namespace AC3_M3UF5
             labelResStatTwo.Text = QueryMethods.AverageDomesticConsum(currentPopulation, currentDomesticConsum).ToString();
             labelResStatThree.Text = QueryMethods.IsHighestConsumCapita(specificRegion, currentConsumCapita) ? "YES" : "NO";
             labelResStatFour.Text = QueryMethods.IsLowestConsumCapita(specificRegion, currentConsumCapita) ? "YES" : "NO";
+        }
+
+        private List<string> ComboYearList()
+        {
+            List<string> list = new List<string>();
+            foreach (var item in comboYear.Items)
+            {
+                list.Add(item.ToString());
+            }
+            return list;
+        }
+
+        private List<string> ComboRegionList()
+        {
+            List<string> list = new List<string>();
+            foreach (var item in comboRegion.Items)
+            {
+                /* Aportat per Copilot:
+                 * Convertim "item" a un objecte per poder accedir a la propietat "Value" i obtenir 
+                 * el valor de la regió. Després el convertim a string i l'afegim a la llista.
+                 */
+                string Value = item.GetType().GetProperty("Value").GetValue(item).ToString();
+                list.Add(Value);
+            }
+            return list;
+        }
+
+
+        private void comboYear_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(comboYear.Text))
+            {
+                errorYear.SetError(comboYear, "Year can't be empty");
+                e.Cancel = true;
+            }
+            else if (!ComboYearList().Contains(comboYear.Text.Trim()))
+            {
+                errorYear.SetError(comboYear, "Year is not exist in the selections");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorYear.SetError(comboYear, null);
+                e.Cancel = false;
+            }
+        }
+
+        private void comboRegion_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(comboRegion.Text))
+            {
+                errorRegion.SetError(comboRegion, "Region can't be empty");
+                e.Cancel = true;
+            }
+            else if (!ComboRegionList().Contains(comboRegion.Text.Trim()))
+            {
+                errorRegion.SetError(comboRegion, "Region is not exist in the selections");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorRegion.SetError(comboRegion, null);
+                e.Cancel = false;
+            }
+        }
+
+        private void textPopulation_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(textPopulation.Text))
+            {
+                errorPopulation.SetError(textPopulation, "Population can't be empty");
+                e.Cancel = true;
+            }
+            else if (!int.TryParse(textPopulation.Text, out int result))
+            {
+                errorPopulation.SetError(textPopulation, "Population must be a number");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorPopulation.SetError(textPopulation, null);
+                e.Cancel = false;
+            }
+        }
+
+        private void textDomesticConsum_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(textDomesticConsum.Text))
+            {
+                errorDomestic.SetError(textDomesticConsum, "Domestic consumption can't be empty");
+                e.Cancel = true;
+            }
+            else if (!int.TryParse(textDomesticConsum.Text, out int result))
+            {
+                errorDomestic.SetError(textDomesticConsum, "Domestic consumption must be a number");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorDomestic.SetError(textDomesticConsum, null);
+                e.Cancel = false;
+            }
+        }
+
+        private void textEconomyConsum_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(textEconomyConsum.Text))
+            {
+                errorEconomic.SetError(textEconomyConsum, "Economy consumption can't be empty");
+                e.Cancel = true;
+            }
+            else if (!int.TryParse(textEconomyConsum.Text, out int result))
+            {
+                errorEconomic.SetError(textEconomyConsum, "Economy consumption must be a number");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorEconomic.SetError(textEconomyConsum, null);
+                e.Cancel = false;
+            }
+        }
+
+        private void textTotalConsum_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(textTotalConsum.Text))
+            {
+                errorTotal.SetError(textTotalConsum, "Total consumption can't be empty");
+                e.Cancel = true;
+            }
+            else if (!int.TryParse(textTotalConsum.Text, out int result))
+            {
+                errorTotal.SetError(textTotalConsum, "Total consumption must be a number");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorTotal.SetError(textTotalConsum, null);
+                e.Cancel = false;
+            }
+        }
+
+        private void textConsumCapita_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(textConsumCapita.Text))
+            {
+                errorCapita.SetError(textConsumCapita, "Consumption per capita can't be empty");
+                e.Cancel = true;
+            }
+            else if (!float.TryParse(textConsumCapita.Text, out float result))
+            {
+                errorCapita.SetError(textConsumCapita, "Consumption per capita must be a number");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorCapita.SetError(textConsumCapita, null);
+                e.Cancel = false;
+            }
         }
     }
 }
